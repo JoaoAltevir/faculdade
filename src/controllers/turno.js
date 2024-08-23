@@ -12,6 +12,7 @@ const model = (body, id = nextID++) => {
         body.termino != undefined
     ){
         return {
+            id,
             nome: body.nome,
             inicio: body.inicio,
             termino: body.termino
@@ -35,7 +36,7 @@ const show = id => db.find(el => el.id == id);
 
 const update = (body, id) => {
     const index = db.findIndex(el => el.id == id);
-    const novo = model(body, id);
+    const novo = model(body, parseInt(id));
     if(novo && index != -1){
         db[index] = novo;
         return 201
@@ -47,6 +48,7 @@ const destroy = id => {
     const index = db.findIndex(el => el.id == id);
     if(index != -1){
         db.splice(index,1);
+        nextID--
         return 200
     }
     return 400
