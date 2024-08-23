@@ -10,7 +10,7 @@ app.use(express.json());
 app.post("/turno", (req,res)=>{
     const turno = req.body;
     const code = turnoController.store(turno);
-    res.statys(code).json();
+    res.status(code).json();
 })
 
 app.get("/turno", (req,res)=>{
@@ -18,7 +18,7 @@ app.get("/turno", (req,res)=>{
 })
 
 app.get("/turno/:id", (req,res)=>{
-    const turno = turnoController.show(id);
+    const turno = turnoController.show(req.params.id);
     res.json(turno)
 })
 
@@ -29,8 +29,7 @@ app.put("/turno/:id", (req, res)=>{
 })
 
 app.delete("/turno/:id", (req, res)=>{
-    const turno = req.body;
-    const code = turnoController.destroy(turno, req.params.id);
+    const code = turnoController.destroy(req.params.id);
     res.status(code).json();
 });
 
